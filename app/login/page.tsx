@@ -4,10 +4,7 @@ import { createClient } from "@/utils/supabase/server";
 import { redirect } from "next/navigation";
 import { SubmitButton } from "./components/submit-button";
 
-export default function Login({
-  searchParams,
-}: {
-  searchParams: { message: string };
+export default function Login({searchParams,}: {searchParams: { message: string };
 }) {
   const signIn = async (formData: FormData) => {
     "use server";
@@ -22,7 +19,7 @@ export default function Login({
     });
 
     if (error) {
-      return redirect("/login?message=Could not authenticate user");
+      return redirect("/login?message=Email or password incorrect");
     }
 
     return redirect("/protected");
@@ -50,6 +47,7 @@ export default function Login({
 
     return redirect("/login?message=Check email to continue sign in process");
   };
+
 
   return (
     <div className="flex-1 flex flex-col w-full px-8 sm:max-w-md justify-center gap-2">

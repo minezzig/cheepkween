@@ -1,5 +1,7 @@
-import { GeistSans } from "geist/font/sans";
+import { Roboto_Mono } from "next/font/google";
 import "./globals.css";
+
+const robotoMono = Roboto_Mono({ subsets: ["latin"] });
 
 const defaultUrl = process.env.VERCEL_URL
   ? `https://${process.env.VERCEL_URL}`
@@ -7,8 +9,8 @@ const defaultUrl = process.env.VERCEL_URL
 
 export const metadata = {
   metadataBase: new URL(defaultUrl),
-  title: "Next.js and Supabase Starter Kit",
-  description: "The fastest way to build apps with Next.js and Supabase",
+  title: "Cheepkween",
+  description: "keep track of your grocery prices so you can save money!",
 };
 
 export default function RootLayout({
@@ -17,7 +19,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={GeistSans.className}>
+    <html lang="en" className={robotoMono.className}>
       <body className="bg-background text-foreground">
         <main className="min-h-screen flex flex-col items-center">
           {children}
