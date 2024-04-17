@@ -22,7 +22,7 @@ export default function Login({searchParams,}: {searchParams: { message: string 
       return redirect("/login?message=Email or password incorrect");
     }
 
-    return redirect("/protected");
+    return redirect("/dashboard");
   };
 
   const signUp = async (formData: FormData) => {
@@ -94,7 +94,7 @@ export default function Login({searchParams,}: {searchParams: { message: string 
         />
         <SubmitButton
           formAction={signIn}
-          className="bg-blue-400 rounded-md px-4 py-2 text-foreground mb-2"
+          className="bg-btn-background rounded-md px-4 py-2 text-foreground mb-2"
           pendingText="Signing In..."
         >
           Sign In
