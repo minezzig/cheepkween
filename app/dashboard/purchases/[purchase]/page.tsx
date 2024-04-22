@@ -1,16 +1,8 @@
 import { createClient } from "@/utils/supabase/server";
-import Form from "../../new-purchase/page";
 import Link from "next/link";
 
 type ParamsType = {
   purchase: string;
-};
-type FormData = {
-  name: string;
-  price: number;
-  store: string;
-  category: string;
-  purchase_date: string;
 };
 
 export default async function Purchase({
@@ -26,20 +18,16 @@ export default async function Purchase({
     .eq("id", +id)
     .single();
 
-  console.log("SINGLE ITEM RUNNING");
-
   return (
     <div>
       <h1 className="text-2xl">Edit an item</h1>
-      <div className="p-3">
+      <div className="p-8">
         You bought <strong>{purchase.name}</strong> on{" "}
         {purchase.purchase_date.slice(0, 10)} for a total of ${purchase.price}
-        <br />
-        {/* {purchase.name && <Form handleSubmit={editPurchase}/>} */}
-        {/* {purchase && (
-          <Form initialData={purchase} handleSubmit={editPurchase} />
-        )} */}
-        <Link href={`/dashboard/edit/${id}`}>EDIT</Link>
+
+        <div className="m-3">
+          <Link className="py-2 px-3 rounded-md no-underline bg-btn-background hover:bg-btn-background-hover" href={`/dashboard/edit/${id}`}>EDIT</Link>
+        </div>
       </div>
     </div>
   );

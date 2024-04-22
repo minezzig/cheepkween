@@ -37,7 +37,7 @@ export default async function Dashboard() {
       <div className="animate-in flex-1 flex flex-col gap-20 opacity-0 max-w-4xl px-3">
         <main className="flex-1 flex flex-col gap-6">
           <h2 className="font-bold text-4xl mb-4">Dashboard</h2>
-          <div className="stats" className="flex gap-10">
+          <div className="flex gap-10">
             <div className="rounded-full bg-btn-background text-white w-24 h-24 p-3 flex flex-col justify-center items-center">
               <div className="font-bold">${total}</div>
               <div className="text-xs">Total</div>

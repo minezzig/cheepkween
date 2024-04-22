@@ -33,13 +33,13 @@ export default async function editPurchase({
       .update(formData)
       .eq("id", formData.id)
       .select();
-    console.log("Edited", data);
+
     redirect(`/dashboard/purchases/${id}`);
   };
 
   return (
     <>
-      <div>EDIT purchase {id}</div>
+      <div>Edit purchase #{id}</div>
       <Form initialData={purchase} handleSubmit={handleEdit} />
     </>
   );

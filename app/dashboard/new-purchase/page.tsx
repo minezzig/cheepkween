@@ -1,6 +1,7 @@
 import { createClient } from "@/utils/supabase/server";
 import { redirect } from "next/navigation";
 import Form from "@/app/components/Form";
+import { todaysDate } from "@/utils/date";
 
 interface FormData {
   id: string;
@@ -17,6 +18,15 @@ export default async function NewPurchase() {
   const {
     data: { user },
   } = await supabase.auth.getUser();
+
+  const formData = {
+    id: "",
+    name: "",
+    price: 0,
+    store: "",
+    category: "",
+    purchase_date: todaysDate(),
+  };
 
   const addPurchase = async (formData: FormData) => {
     "use server";
@@ -39,15 +49,6 @@ export default async function NewPurchase() {
     redirect("/dashboard");
   };
 
-  const formData = {
-    id: "",
-    name: "",
-    price: 0,
-    store: "",
-    category: "",
-    purchase_date: "",
-  };
-  console.log(formData);
   return (
     <>
       <div className="flex flex-1 flex-col">

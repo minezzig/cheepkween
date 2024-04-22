@@ -1,6 +1,7 @@
 import { createClient } from "@/utils/supabase/server";
 import Header from "../components/Header";
 import { redirect } from "next/navigation";
+import Footer from "../components/Footer";
 export default async function Layout({
   children,
 }: {
@@ -20,6 +21,7 @@ export default async function Layout({
     <main className="min-h-screen w-full flex flex-col items-center">
       <Header />
       {children}
+      <Footer />
     </main>
   );
 }

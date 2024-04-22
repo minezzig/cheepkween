@@ -1,5 +1,4 @@
 "use client"
-import { init } from "next/dist/compiled/webpack/webpack";
 import Link from "next/link";
 import { useState } from "react";
 
