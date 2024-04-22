@@ -1,6 +1,4 @@
 import { createClient } from "@/utils/supabase/server";
-import Link from "next/link";
-import { redirect } from "next/navigation";
 
 export default async function Dashboard() {
   // select all data from database
@@ -25,6 +23,8 @@ export default async function Dashboard() {
     .limit(1)
     .single();
 
+  // a new fetch getting the cheapest purchase
+
   const { data: cheap } = await supabase
     .from("purchases")
     .select()
@@ -32,7 +32,6 @@ export default async function Dashboard() {
     .limit(1)
     .single();
 
-    console.log("DASHBAORD")
   return (
     <div className="flex-1 w-full flex flex-col gap-20 items-center">
       <div className="animate-in flex-1 flex flex-col gap-20 opacity-0 max-w-4xl px-3">
