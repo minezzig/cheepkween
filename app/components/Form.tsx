@@ -1,8 +1,10 @@
-"use client";
+"use client"
+import { init } from "next/dist/compiled/webpack/webpack";
 import Link from "next/link";
 import { useState } from "react";
 
-type FormData = {
+interface FormData {
+  id: string;
   name: string;
   price: number;
   store: string;
@@ -11,28 +13,23 @@ type FormData = {
 };
 
 interface Props {
-  handleSubmit: (formData: FormData) => Promise<void>;
+  initialData: FormData;
+  handleSubmit: (formData: FormData) => Promise<never>;
 }
 
-export default function Form({ handleSubmit }: Props) {
-  const initialForm = {
-    name: "",
-    price: 0,
-    store: "",
-    category: "",
-    purchase_date: "",
-  };
-  const [formData, setFormData] = useState(initialForm);
 
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
-  ) => {
-    setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
-  };
+export default function Form({ initialData, handleSubmit }: Props) {
+const [formData, setFormData] = useState(initialData);
+
+const handleChange = (
+  e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+) => {
+  setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+};
 
   return (
     <div>
-      <form action={() => handleSubmit(formData)}>
+  <form action={() => handleSubmit(formData)}>
         <div className="max-w-2xl flex flex-col gap-5 p-3">
           <div>
             <label htmlFor="name">Name: </label>
@@ -71,7 +68,7 @@ export default function Form({ handleSubmit }: Props) {
               value={formData.category}
               onChange={handleChange}
             >
-              <option value="" disabled>
+              <option defaultValue="" disabled>
                 Select
               </option>
               <option value="grocery">grocery</option>

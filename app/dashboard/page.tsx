@@ -32,6 +32,7 @@ export default async function Dashboard() {
     .limit(1)
     .single();
 
+    console.log("DASHBAORD")
   return (
     <div className="flex-1 w-full flex flex-col gap-20 items-center">
       <div className="animate-in flex-1 flex flex-col gap-20 opacity-0 max-w-4xl px-3">
@@ -54,10 +55,7 @@ export default async function Dashboard() {
             </div>
           </div>
           <h2>
-            supermarkets:{" "}
-            {supermarkets.map((sm, i) => (
-              <li key={i}>{sm}</li>
-            ))}
+            Welcome to your dashboard.  view your spending here.  or navigate to another page to view products and add items.
           </h2>
         </main>
       </div>

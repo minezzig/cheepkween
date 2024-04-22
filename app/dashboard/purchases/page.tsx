@@ -2,7 +2,7 @@ import { createClient } from "@/utils/supabase/server";
 
 export default async function Purchases() {
   const supabase = createClient();
-  const { data: purchases } = await supabase.from("purchases").select();
+  const { data: purchases } = await supabase.from("purchases").select().order('id');
 
   return (
     <div className="flex flex-col flex-1">
