@@ -1,6 +1,14 @@
 import { createClient } from "@/utils/supabase/server";
 import { redirect } from "next/navigation";
-import Link from "next/link";
+import Form from "./Form";
+
+type FormData = {
+  name: string;
+  price: number;
+  store: string;
+  category: string;
+  purchase_date: string;
+};
 
 export default async function NewPurchase() {
   const supabase = createClient();
@@ -9,18 +17,17 @@ export default async function NewPurchase() {
     data: { user },
   } = await supabase.auth.getUser();
 
-  if (!user) {
-    return redirect("/login");
-  }
-
   const addPurchase = async (formData: FormData) => {
     "use server";
+    console.log("SUBMITTED")
+    console.log(formData)
+
     const supabase = createClient();
-    const name = formData.get("name");
-    const price = formData.get("price");
-    const store = formData.get("store");
-    const category = formData.get("category");
-    const purchase_date = formData.get("date");
+    const name = formData.name;
+    const price = formData.price;
+    const store = formData.store;
+    const category = formData.category;
+    const purchase_date = formData.purchase_date;
 
     const { data, error } = await supabase
       .from("purchases")
@@ -33,6 +40,7 @@ export default async function NewPurchase() {
         user_id: user?.id,
       })
       .select();
+      console.log(data, "SUBMITTEd")
 
     redirect("/dashboard");
   };
@@ -40,7 +48,8 @@ export default async function NewPurchase() {
     <>
       <div className="flex flex-1 flex-col">
         <div className="text-xl m-3">Add new purchase:</div>
-        <form action={addPurchase}>
+        <Form handleSubmit={addPurchase} />
+        {/* <form action={addPurchase}>
           <div className="max-w-2xl flex flex-col gap-5 p-3">
             <div>
               <label htmlFor="name">Name: </label>
@@ -82,7 +91,7 @@ export default async function NewPurchase() {
               </Link>
             </div>
           </div>
-        </form>
+        </form> */}
       </div>
     </>
   );

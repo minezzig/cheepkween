@@ -1,7 +1,5 @@
 import { createClient } from "@/utils/supabase/server";
-import AuthButton from "./components/AuthButton";
 import Header from "./components/Header"
-import Footer from "./components/Footer";
 import { redirect } from "next/navigation";
 
 export default async function Index() {

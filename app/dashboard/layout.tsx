@@ -1,16 +1,25 @@
-import Footer from "../components/Footer";
+import { createClient } from "@/utils/supabase/server";
 import Header from "../components/Header";
-export default function Layout({
+import { redirect } from "next/navigation";
+export default async function Layout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  return (
-   
-        <main className="min-h-screen flex flex-col items-center">
-          <Header />
-          {children}
-        </main>
+  // check to see if user is authorized to enter Dashboard layout
+  const supabase = createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
 
+  if (!user) {
+    return redirect("/login");
+  }
+
+  return (
+    <main className="min-h-screen w-full flex flex-col items-center">
+      <Header />
+      {children}
+    </main>
   );
 }

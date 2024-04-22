@@ -3,7 +3,7 @@ import AuthButton from "./AuthButton";
 
 export default async function Header() {
   return (
-    <nav className="w-dvw flex justify-between items-center px-3 border-b border-b-foreground/10 border border-black">
+    <nav className="w-full flex justify-between items-center px-3 border-b border-b-foreground/10">
       <div className="flex gap-3">
         <Link href="/dashboard">Home </Link>
         <Link href="/dashboard/purchases">Purchases </Link>

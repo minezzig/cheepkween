@@ -1,17 +1,7 @@
 import { createClient } from "@/utils/supabase/server";
-import { redirect } from "next/navigation";
 
 export default async function Purchases() {
-    const supabase = createClient();
-
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
-
-  if (!user) {
-    return redirect("/login");
-  }
-
+  const supabase = createClient();
   const { data: purchases } = await supabase.from("purchases").select();
 
   return (
@@ -20,7 +10,9 @@ export default async function Purchases() {
       <ol>
         {purchases?.map((purchase) => (
           <li key={purchase.id}>
-            {purchase.name}: ${purchase.price}
+            <a href={`purchases/${purchase.id}`}>
+              {purchase.name}: ${purchase.price}
+            </a>
           </li>
         ))}
       </ol>
