@@ -1,21 +1,28 @@
 import { createClient } from "@/utils/supabase/server";
+import Search from "@/app/components/Search";
+
+interface Purchases {
+  id: string;
+  name: string;
+  price: number;
+  store: string;
+  category: string;
+  purchase_date: string;
+}
 
 export default async function Purchases() {
   const supabase = createClient();
-  const { data: purchases } = await supabase.from("purchases").select().order('id');
+  const { data: purchases } = await supabase
+    .from("purchases")
+    .select()
+    .order("purchase_date", {ascending: false});
+
 
   return (
-    <div className="flex flex-col flex-1">
+    <div className="w-full md:w-3/5">
       <div className="text-xl m-3">Purchase history:</div>
-      <ol>
-        {purchases?.map((purchase) => (
-          <li key={purchase.id}>
-            <a href={`purchases/${purchase.id}`}>
-              {purchase.name}: ${purchase.price}
-            </a>
-          </li>
-        ))}
-      </ol>
+      <Search purchases={purchases}/>
+
     </div>
   );
 }

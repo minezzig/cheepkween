@@ -1,5 +1,14 @@
 import { createClient } from "@/utils/supabase/server";
 
+interface Purchases {
+  id: string;
+  name: string;
+  price: number;
+  store: string;
+  category: string;
+  purchase_date: string;
+}
+
 export default async function Dashboard() {
   // select all data from database
   const supabase = createClient();
@@ -37,24 +46,29 @@ export default async function Dashboard() {
       <div className="animate-in flex-1 flex flex-col gap-20 opacity-0 max-w-4xl px-3">
         <main className="flex-1 flex flex-col gap-6">
           <h2 className="font-bold text-4xl mb-4">Dashboard</h2>
-          <div className="flex gap-10">
-            <div className="rounded-full bg-btn-background text-white w-24 h-24 p-3 flex flex-col justify-center items-center">
-              <div className="font-bold">${total}</div>
-              <div className="text-xs">Total</div>
+          {purchases && purchases.length > 0 ? (
+            <div className="flex gap-10">
+              <div className="rounded-full bg-btn-background text-white w-24 h-24 p-3 flex flex-col justify-center items-center">
+                <div className="font-bold">${total}</div>
+                <div className="text-xs">Total</div>
+              </div>
+              <div className="rounded-full bg-btn-background text-white w-24 h-24 p-3 flex flex-col justify-center items-center">
+                <div className="font-bold">${expensive.price}</div>
+                <div className="text-xs">Expensive</div>
+                <div className="text-xs">{expensive.store}</div>
+              </div>
+              <div className="rounded-full bg-btn-background text-white w-24 h-24 p-3 flex flex-col justify-center items-center">
+                <div className="font-bold">${cheap.price}</div>
+                <div className="text-xs">Cheapest</div>
+                <div className="text-xs">{cheap.store}</div>
+              </div>
             </div>
-            <div className="rounded-full bg-btn-background text-white w-24 h-24 p-3 flex flex-col justify-center items-center">
-              <div className="font-bold">${expensive.price}</div>
-              <div className="text-xs">Expensive</div>
-              <div className="text-xs">{expensive.store}</div>
-            </div>
-            <div className="rounded-full bg-btn-background text-white w-24 h-24 p-3 flex flex-col justify-center items-center">
-              <div className="font-bold">${cheap.price}</div>
-              <div className="text-xs">Cheapest</div>
-              <div className="text-xs">{cheap.store}</div>
-            </div>
-          </div>
+          ) : (
+            <h1>No data yet</h1>
+          )}
           <h2>
-            Welcome to your dashboard.  view your spending here.  or navigate to another page to view products and add items.
+            Welcome to your dashboard. view your spending here. or navigate to
+            another page to view products and add items.
           </h2>
         </main>
       </div>
