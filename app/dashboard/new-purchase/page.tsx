@@ -46,7 +46,7 @@ export default async function NewPurchase() {
       })
       .select();
 
-    redirect("/dashboard");
+    redirect("/dashboard/purchases");
   };
 
   return (

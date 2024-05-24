@@ -2,7 +2,16 @@
 
 import { useState } from "react";
 
-export default function Search({ purchases }) {
+type Purchase = {
+  id: string;
+  name: string;
+  price: number;
+  store: string;
+  category: string;
+  purchase_date: string;
+};
+
+export default function Search({ purchases }: { purchases: Purchase[] }) {
   const [filtered, setFiltered] = useState(purchases);
 
   const search = async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -14,34 +23,35 @@ export default function Search({ purchases }) {
   };
   return (
     <div>
-      Search Name: {" "}
-      <input className="outline my-5" onInput={search} />
+      Search Name: <input className="outline my-5" onInput={search} />
       <div className="w- outline mx-3">
         <div className="flex bg-black text-white p-3 outline-black">
           <div className="flex-1 font-bold">Date</div>
-          <div className="flex-1 font-bold">Name</div>
-          <div className="flex-1 font-bold">Store</div>
-          <div className="flex-1 font-bold">Price</div>
+          <div className="flex-1 font-bold ">Name</div>
+          <div className="flex-1 font-bold ">Store</div>
+          <div className="flex-1 font-bold ">Price</div>
         </div>
         <div className="outline">
           {filtered?.map((purchase) => (
             <div
               key={purchase.id}
-              className="border border-black flex odd:bg-blue-100"
+              className="border border-black flex odd:bg-yellow-100 hover:bg-yellow-300"
             >
-              <div className="border-black border-r-2 p-2 flex-1 text-sm md:text-base">
-                {purchase.purchase_date}
-              </div>
+              <a href={`purchases/${purchase.id}`} className="flex w-full">
+                <div className="border-black border-r-2 p-2 flex-1 text-sm md:text-base">
+                  {purchase.purchase_date}
+                </div>
 
-              <div className=" border-black border-r-2 p-2 flex-1 text-sm md:text-base">
-                <a href={`purchases/${purchase.id}`}>{purchase.name} </a>
-              </div>
-              <div className="border-black border-r-2 p-2 flex-1 text-sm md:text-base">
-                {purchase.store}
-              </div>
-              <div className="p-2 flex-1 text-sm md:text-base">
-                ${purchase.price}
-              </div>
+                <div className=" border-black border-r-2 p-2 flex-1 text-sm md:text-base">
+                  {purchase.name}
+                </div>
+                <div className="border-black border-r-2 p-2 flex-1 text-sm md:text-base">
+                  {purchase.store}
+                </div>
+                <div className="p-2 flex-1 text-sm md:text-base">
+                  ${purchase.price}
+                </div>
+              </a>
             </div>
           ))}
         </div>

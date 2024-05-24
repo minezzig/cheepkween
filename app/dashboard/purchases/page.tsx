@@ -12,17 +12,17 @@ interface Purchases {
 
 export default async function Purchases() {
   const supabase = createClient();
-  const { data: purchases } = await supabase
+  const { data } = await supabase
     .from("purchases")
     .select()
-    .order("purchase_date", {ascending: false});
+    .order("purchase_date", { ascending: false });
+  const purchases: Purchases[] = data ?? [];
 
 
   return (
     <div className="w-full md:w-3/5">
       <div className="text-xl m-3">Purchase history:</div>
-      <Search purchases={purchases}/>
-
+      <Search purchases={purchases} />
     </div>
   );
 }
