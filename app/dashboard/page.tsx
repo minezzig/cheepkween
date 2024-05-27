@@ -67,19 +67,19 @@ export default async function Dashboard() {
           <h2 className="font-bold text-4xl">Dashboard - {months[new Date().getMonth()] + " " + new Date().getFullYear()}</h2>
           {purchases && purchases.length > 0 ? (
             <div className="flex gap-10 w-full justify-center items-center">
-              <div className="rounded-full bg-btn-background text-neutral-600 w-24 h-24 p-3 flex flex-col justify-center items-center">
+              <div className="hover:scale-105 transition rounded-full bg-btn-background text-neutral-600 w-24 h-24 p-3 flex flex-col justify-center items-center">
                 <div className="font-bold">${total}</div>
                 <div className="text-xs">Total</div>
               </div>
-              <div className="rounded-full bg-btn-background text-neutral-600 w-24 h-24 p-3 flex flex-col justify-center items-center">
+              <div className="hover:scale-105 transition rounded-full bg-btn-background text-neutral-600 w-24 h-24 p-3 flex flex-col justify-center items-center">
                 <div className="font-bold">${expensive.price}</div>
                 <div className="text-xs">Expensive</div>
-                <div className="text-xs">{expensive.store}</div>
+                <div className="text-xs">{expensive.name}</div>
               </div>
-              <div className="rounded-full bg-btn-background text-neutral-600 w-24 h-24 p-3 flex flex-col justify-center items-center">
+              <div className="hover:scale-105 transition rounded-full bg-btn-background text-neutral-600 w-24 h-24 p-3 flex flex-col justify-center items-center">
                 <div className="font-bold">${cheap.price}</div>
                 <div className="text-xs">Cheapest</div>
-                <div className="text-xs">{cheap.store}</div>
+                <div className="text-xs">{cheap.name}</div>
               </div>
             </div>
           ) : (

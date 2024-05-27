@@ -20,7 +20,7 @@ export default async function Purchases() {
 
 
   return (
-    <div className="w-full md:w-3/5">
+    <div className="w-full md:w-3/5 flex flex-1 flex-col px-3">
       <div className="text-xl m-3">Purchase history:</div>
       <Search purchases={purchases} />
     </div>

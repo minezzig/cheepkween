@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import Link from "next/link";
 import { useState } from "react";
 
@@ -9,56 +9,120 @@ interface FormData {
   store: string;
   category: string;
   purchase_date: string;
-};
+}
 
 interface Props {
   initialData: FormData;
   handleSubmit: (formData: FormData) => Promise<never>;
 }
 
-
 export default function Form({ initialData, handleSubmit }: Props) {
-const [formData, setFormData] = useState(initialData);
+  const [formData, setFormData] = useState(initialData);
 
-const handleChange = (
-  e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
-) => {
-  setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
-};
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ) => {
+    setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+  };
 
   return (
     <div>
-  <form action={() => handleSubmit(formData)}>
-        <div className="max-w-2xl flex flex-col gap-5 p-3">
-          <div>
-            <label htmlFor="name">Name: </label>
+      <form action={() => handleSubmit(formData)}>
+        <div className="max-w-2xl flex flex-col gap-5 relative">
+          <div className="relative">
             <input
               type="text"
               name="name"
               value={formData.name}
               onChange={handleChange}
               required
+              placeholder=""
+              className="peer h-10 w-full border px-3 border-black placeholder-transparent focus:outline-none focus:border-btn-background"
             />
+            <label
+              htmlFor="name"
+              className="
+              pointer-events-none 
+              absolute 
+              left-3
+              transition-all
+              duration-500
+              peer-placeholder-shown:text-gray-400 
+              peer-placeholder-shown:bg-white
+              peer-placeholder-shown:text-lg
+              peer-placeholder-shown:top-1
+              peer-placeholder-shown:border-white
+              -top-2
+              text-xs
+              px-2
+              text-black
+              border
+              border-black
+              bg-btn-background 
+              peer-focus:text-black
+              peer-focus:-top-2
+              peer-focus:text-xs
+              peer-focus:px-2
+              peer-focus:border-black
+              peer-focus:bg-btn-background 
+              valid:border-black
+
+              "
+            >
+              Name
+            </label>
           </div>
+
           <div>
-            <label htmlFor="price">Price: </label>
-            <input
+                <label htmlFor="price">Price: </label>
+                <input
               type="number"
               name="price"
               value={formData.price}
               onChange={handleChange}
               required
+              placeholder=""
             />
+        
           </div>
-          <div>
-            <label htmlFor="store">Store: </label>
+          <div className="relative">
+            
             <input
               type="text"
               name="store"
               value={formData.store}
               onChange={handleChange}
               required
+              placeholder=""
+              className="peer h-10 w-full border px-3 border-black placeholder-transparent focus:outline-none focus:border-btn-background"
             />
+            <label htmlFor="store" className="
+              pointer-events-none 
+              absolute 
+              left-3
+              transition-all
+              duration-500
+              peer-placeholder-shown:text-gray-400 
+              peer-placeholder-shown:bg-white
+              peer-placeholder-shown:text-lg
+              peer-placeholder-shown:top-1
+              peer-placeholder-shown:border-white
+              -top-2
+              text-xs
+              px-2
+              text-black
+              border
+              border-black
+              bg-btn-background 
+              peer-focus:text-black
+              peer-focus:-top-2
+              peer-focus:text-xs
+              peer-focus:px-2
+              peer-focus:border-black
+              peer-focus:bg-btn-background 
+              valid:border-black
+
+              ">Store</label>
           </div>
           <div>
             <label htmlFor="category">Category: </label>

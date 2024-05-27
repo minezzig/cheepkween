@@ -7,19 +7,19 @@ export default async function Header() {
       <div className="flex gap-3">
         <Link
           href="/dashboard"
-          className="bg-black hover:scale-[1.1] transition rounded-tl-md rounded-tr-md px-3 text-btn-background"
+          className="bg-black hover:scale-105 transition rounded-tl-md rounded-tr-md px-3 text-btn-background"
         >
           Home{" "}
         </Link>
         <Link
           href="/dashboard/purchases"
-          className="bg-black hover:scale-[1.1] transition rounded-tl-md rounded-tr-md  px-3 text-btn-background"
+          className="bg-black hover:scale-105 transition rounded-tl-md rounded-tr-md  px-3 text-btn-background"
         >
           Purchases{" "}
         </Link>
         <Link
           href="/dashboard/new-purchase"
-          className="bg-black hover:scale-[1.1] transition  rounded-tl-md rounded-tr-md  px-3 text-btn-background"
+          className="bg-black hover:scale-105 transition  rounded-tl-md rounded-tr-md  px-3 text-btn-background"
         >
           Add
         </Link>

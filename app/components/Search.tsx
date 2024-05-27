@@ -23,7 +23,8 @@ export default function Search({ purchases }: { purchases: Purchase[] }) {
   };
   return (
     <div>
-      Search Name: <input className="outline my-5" onInput={search} />
+      <label htmlFor="search" className="ml-3">Search Name: </label>
+      <input className="outline my-5" onInput={search} />
       <div className="w- outline mx-3">
         <div className="flex bg-black text-white p-3 outline-black">
           <div className="flex-1 font-bold">Date</div>
