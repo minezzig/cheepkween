@@ -36,7 +36,7 @@ export default function Form({ initialData, handleSubmit }: Props) {
               value={formData.name}
               onChange={handleChange}
               required
-              placeholder=""
+              placeholder=" "
               className="peer h-10 w-full border px-3 border-black placeholder-transparent focus:outline-none focus:border-btn-background"
             />
             <label
@@ -53,6 +53,7 @@ export default function Form({ initialData, handleSubmit }: Props) {
               peer-placeholder-shown:top-1
               peer-placeholder-shown:border-white
               -top-2
+
               text-xs
               px-2
               text-black
@@ -61,6 +62,7 @@ export default function Form({ initialData, handleSubmit }: Props) {
               bg-btn-background 
               peer-focus:text-black
               peer-focus:-top-2
+              peer-focus:left-3
               peer-focus:text-xs
               peer-focus:px-2
               peer-focus:border-black
@@ -73,20 +75,51 @@ export default function Form({ initialData, handleSubmit }: Props) {
             </label>
           </div>
 
-          <div>
-                <label htmlFor="price">Price: </label>
-                <input
+          <div className="relative">
+            <input
               type="number"
               name="price"
               value={formData.price}
               onChange={handleChange}
               required
               placeholder=""
+              className="h-10 border border-black px-3 placeholder-transparent focus:outline-none focus:border-btn-background"
             />
-        
+            <label
+              htmlFor="price"
+              className="
+              pointer-events-none 
+              absolute 
+              transition-all
+              duration-500
+              peer-placeholder-shown:text-gray-400 
+              peer-placeholder-shown:bg-white
+              peer-placeholder-shown:text-lg
+              peer-placeholder-shown:top-1
+              peer-placeholder-shown:border-white
+              -top-2
+              left-3
+              text-xs
+              px-2
+              text-black
+              border
+              border-black
+              bg-btn-background 
+              peer-focus:text-black
+              peer-focus:-top-2
+              peer-focus:left-3
+              peer-focus:text-xs
+              peer-focus:px-2
+              peer-focus:border-black
+              peer-focus:bg-btn-background 
+              valid:border-black
+
+              "
+            >
+              Price
+            </label>
           </div>
           <div className="relative">
-            
             <input
               type="text"
               name="store"
@@ -96,8 +129,98 @@ export default function Form({ initialData, handleSubmit }: Props) {
               placeholder=""
               className="peer h-10 w-full border px-3 border-black placeholder-transparent focus:outline-none focus:border-btn-background"
             />
-            <label htmlFor="store" className="
+            <label
+              htmlFor="store"
+              className="
               pointer-events-none 
+              absolute 
+              transition-all
+              duration-500
+              peer-placeholder-shown:text-gray-400 
+              peer-placeholder-shown:bg-white
+              peer-placeholder-shown:text-lg
+              peer-placeholder-shown:top-1
+              peer-placeholder-shown:border-white
+              -top-2
+              left-3
+              text-xs
+              px-2
+              text-black
+              border
+              border-black
+              bg-btn-background 
+              peer-focus:text-black
+              peer-focus:-top-2
+              peer-focus:left-3
+              peer-focus:text-xs
+              peer-focus:px-2
+              peer-focus:border-black
+              peer-focus:bg-btn-background 
+              valid:border-black
+
+              "
+            >
+              Store
+            </label>
+          </div>
+          <div className="relative">
+            <select
+              name="category"
+              value={formData.category}
+              onChange={handleChange}
+              className="peer h-10 w-full border px-3 border-black placeholder-transparent focus:outline-none focus:border-btn-background"
+            >
+              <option defaultValue="" selected hidden></option>
+              <option value="grocery">grocery</option>
+              <option value="clothes">clothes</option>
+            </select>
+            <label
+              htmlFor="category"
+              className="
+              pointer-events-none 
+              absolute 
+              transition-all
+              duration-500
+              peer-placeholder-shown:text-gray-400 
+              peer-placeholder-shown:bg-white
+              peer-placeholder-shown:text-lg
+              peer-placeholder-shown:top-1
+              peer-placeholder-shown:border-white
+              -top-2
+              left-3
+              text-xs
+              px-2
+              text-black
+              border
+              border-black
+              bg-btn-background 
+              peer-focus:text-black
+              peer-focus:-top-2
+              peer-focus:left-3
+              peer-focus:text-xs
+              peer-focus:px-2
+              peer-focus:border-black
+              peer-focus:bg-btn-background 
+              valid:border-black
+
+              "
+            >
+              Category
+            </label>
+          </div>
+          <div className="relative">
+            <input
+              type="date"
+              name="purchase_date"
+              value={formData.purchase_date}
+              onChange={handleChange}
+              placeholder=""
+              className="w-full h-10 border border-black px-3 focus:outline-none focus:border-btn-background"
+            />
+            <label
+              htmlFor="date"
+              className="
+                 pointer-events-none 
               absolute 
               left-3
               transition-all
@@ -116,36 +239,18 @@ export default function Form({ initialData, handleSubmit }: Props) {
               bg-btn-background 
               peer-focus:text-black
               peer-focus:-top-2
+              peer-focus:left-3
               peer-focus:text-xs
               peer-focus:px-2
               peer-focus:border-black
               peer-focus:bg-btn-background 
               valid:border-black
 
-              ">Store</label>
-          </div>
-          <div>
-            <label htmlFor="category">Category: </label>
-            <select
-              name="category"
-              value={formData.category}
-              onChange={handleChange}
+
+              "
             >
-              <option defaultValue="" disabled>
-                Select
-              </option>
-              <option value="grocery">grocery</option>
-              <option value="clothes">clothes</option>
-            </select>
-          </div>
-          <div>
-            <label htmlFor="date">Date: </label>
-            <input
-              type="date"
-              name="purchase_date"
-              value={formData.purchase_date}
-              onChange={handleChange}
-            />
+              Date
+            </label>
           </div>
           <div className="w-full flex justify-center gap-3">
             <button
