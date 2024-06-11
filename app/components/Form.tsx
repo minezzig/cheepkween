@@ -83,7 +83,7 @@ export default function Form({ initialData, handleSubmit }: Props) {
               onChange={handleChange}
               required
               placeholder=""
-              className="h-10 border border-black px-3 placeholder-transparent focus:outline-none focus:border-btn-background"
+              className="w-full h-10 border border-black px-3 placeholder-transparent focus:outline-none focus:border-btn-background"
             />
             <label
               htmlFor="price"

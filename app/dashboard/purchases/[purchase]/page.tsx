@@ -38,7 +38,7 @@ export default async function Purchase({
   // ---------------------------------
 
   return (
-    <div>
+    <div className="flex-1">
       <h1 className="text-2xl">Edit an item</h1>
       <div className="p-8 flex flex-col items-center">
         <p>
@@ -47,7 +47,7 @@ export default async function Purchase({
           of ${purchase.price}
         </p>
         {imageUrl ? (
-        <a href={photographerLink}><img src={imageUrl} alt={purchase.name}/><p className="text-xs">{photographer}</p></a>
+        <div className="border border-gray-950 p-3 shadow-lg m-5"><a href={photographerLink}><img src={imageUrl} alt={purchase.name}/><p className="text-xs pt-2">Credit: {photographer}</p></a></div>
       ) : (
         <p className="text-xs">No image available</p>
       )}

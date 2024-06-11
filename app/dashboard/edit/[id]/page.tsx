@@ -38,9 +38,9 @@ export default async function editPurchase({
   };
 
   return (
-    <>
-      <div>Edit purchase #{id}</div>
+    <div className="flex-1">
+      <h2 className="m-5 text-xl font-bold">Edit purchase #{id}</h2>
       <Form initialData={purchase} handleSubmit={handleEdit} />
-    </>
+    </div>
   );
 }

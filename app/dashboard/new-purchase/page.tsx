@@ -46,7 +46,7 @@ export default async function NewPurchase() {
       })
       .select();
 
-    redirect("/dashboard/purchases");
+    redirect(`/dashboard/purchases/${data[0].id}`);
   };
 
   return (
