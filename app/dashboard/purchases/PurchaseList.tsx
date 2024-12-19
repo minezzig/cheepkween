@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { PurchaseType } from "@/types/types";
 
 interface SearchProps {
@@ -22,6 +22,12 @@ export default function PurchaseList({ purchases }: SearchProps) {
     const newDate = fullDate.slice(4,10) + ", " + fullDate.slice(11,15)
     return newDate
   }
+
+  const sort = (col: string) => {
+    const sorted = filtered.sort((a,b) => a[col] < b[col] ? -1 : 1);
+    console.log(sorted)
+    setFiltered(sorted);
+  }
   
   return (
     <div>
@@ -29,10 +35,10 @@ export default function PurchaseList({ purchases }: SearchProps) {
       <input className="outline my-5 px-3" onInput={search} placeholder="search product name"/>
       <div className="outline mx-3">
         <div className="flex bg-black text-white p-3 outline-black">
-          <div className="flex-1 font-bold">Date</div>
-          <div className="flex-1 font-bold">Name</div>
-          <div className="flex-1 font-bold ">Store</div>
-          <div className="flex-1 font-bold ">Price</div>
+          <div className="flex-1 font-bold cursor-pointer" onClick={() => sort("date")}>Date</div>
+          <div className="flex-1 font-bold cursor-pointer" onClick={() => sort("name")}>Name</div>
+          <div className="flex-1 font-bold cursor-pointer" onClick={() => sort("store")}>Store</div>
+          <div className="flex-1 font-bold cursor-pointer" onClick={() => sort("price")}>Price</div>
         </div>
         <div className="outline">
           {filtered?.map((purchase) => (

@@ -30,7 +30,7 @@ export default async function NewPurchase() {
       .insert({
         name: name,
         price: price,
-        store: store,
+        store: String(store[0]).toUpperCase() + String(store).slice(1),
         category: category,
         purchase_date: purchase_date,
         user_id: user?.id,
