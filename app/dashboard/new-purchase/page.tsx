@@ -28,7 +28,7 @@ export default async function NewPurchase() {
     const { data, error } = await supabase
       .from("purchases")
       .insert({
-        name: name,
+        name: name.toLowerCase(),
         price: price,
         store: String(store[0]).toUpperCase() + String(store).slice(1),
         category: category,
