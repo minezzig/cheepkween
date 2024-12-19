@@ -1,17 +1,12 @@
 "use client";
-
 import { useState } from "react";
+import { PurchaseType } from "@/types/types";
 
-type Purchase = {
-  id: string;
-  name: string;
-  price: number;
-  store: string;
-  category: string;
-  purchase_date: string;
-};
+interface SearchProps {
+  purchases: PurchaseType[]
+}
 
-export default function Search({ purchases }: { purchases: Purchase[] }) {
+export default function PurchaseList({ purchases }: SearchProps) {
   const [filtered, setFiltered] = useState(purchases);
 
   const search = async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -21,14 +16,21 @@ export default function Search({ purchases }: { purchases: Purchase[] }) {
     );
     setFiltered(result);
   };
+
+  const formatDate = (date: string) => {
+    const fullDate = String(new Date(date))
+    const newDate = fullDate.slice(4,10) + ", " + fullDate.slice(11,15)
+    return newDate
+  }
+  
   return (
     <div>
-      <label htmlFor="search" className="ml-3">Search Name: </label>
-      <input className="outline my-5" onInput={search} />
-      <div className="w- outline mx-3">
+      <label htmlFor="search" className="ml-3"></label>
+      <input className="outline my-5 px-3" onInput={search} placeholder="search product name"/>
+      <div className="outline mx-3">
         <div className="flex bg-black text-white p-3 outline-black">
           <div className="flex-1 font-bold">Date</div>
-          <div className="flex-1 font-bold ">Name</div>
+          <div className="flex-1 font-bold">Name</div>
           <div className="flex-1 font-bold ">Store</div>
           <div className="flex-1 font-bold ">Price</div>
         </div>
@@ -39,8 +41,8 @@ export default function Search({ purchases }: { purchases: Purchase[] }) {
               className="border border-black flex odd:bg-yellow-100 hover:bg-yellow-300"
             >
               <a href={`purchases/${purchase.id}`} className="flex w-full">
-                <div className="border-black border-r-2 p-2 flex-1 text-sm md:text-base">
-                  {purchase.purchase_date}
+                <div className="border-black border-r-2 p-2 flex-1 text-xs md:text-base">
+                  {formatDate(purchase.purchase_date)}
                 </div>
 
                 <div className=" border-black border-r-2 p-2 flex-1 text-sm md:text-base">
@@ -49,8 +51,8 @@ export default function Search({ purchases }: { purchases: Purchase[] }) {
                 <div className="border-black border-r-2 p-2 flex-1 text-sm md:text-base">
                   {purchase.store}
                 </div>
-                <div className="p-2 flex-1 text-sm md:text-base">
-                  ${purchase.price}
+                <div className="p-2 flex-1 text-sm md:text-base font-bold text-right">
+                  ${purchase.price.toFixed(2)}
                 </div>
               </a>
             </div>

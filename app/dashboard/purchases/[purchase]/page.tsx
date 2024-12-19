@@ -2,25 +2,20 @@ import { createClient } from "@/utils/supabase/server";
 import Link from "next/link";
 import DeleteButton from "./DeleteButton";
 
-type ParamsType = {
-  purchase: string;
-};
+interface PurchaseProps {
+  params: {purchase: string}
+}
 
-export default async function Purchase({
-  params: { purchase: id },
-}: {
-  params: ParamsType;
-}) {
+export default async function Purchase({params: { purchase: id }}: PurchaseProps) {
   // fetch the specified purchase
   const supabase = createClient();
-
   const { data: purchase, error } = await supabase
     .from("purchases")
     .select()
     .eq("id", +id)
     .single();
 
-  // ---------------------------------
+  // image fetcher
   const accessKey = process.env.NEXT_PUBLIC_ACCESS_KEY;
   let imageUrl,photographer,photographerLink;
   try {
@@ -34,8 +29,6 @@ export default async function Purchase({
   } catch (error) {
     console.error("Error fetching image:", error);
   }
-
-  // ---------------------------------
 
   return (
     <div className="flex-1">
@@ -55,7 +48,7 @@ export default async function Purchase({
         <div className="m-3 flex gap-3 w-full justify-center items-center">
           <Link
             className="py-2 px-3 rounded-md no-underline bg-btn-background hover:bg-btn-background-hover"
-            href={`/dashboard/edit/${id}`}
+            href={`/dashboard/purchases/edit/${id}`}
           >
             EDIT
           </Link>

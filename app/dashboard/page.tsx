@@ -1,95 +1,89 @@
 import { createClient } from "@/utils/supabase/server";
-
-interface Purchases {
-  id: string;
-  name: string;
-  price: number;
-  store: string;
-  category: string;
-  purchase_date: string;
-}
+import Chart from "./components/Chart";
+import CircleContainer from "./components/CircleContainer";
 
 export default async function Dashboard() {
   // select all data from database
   const supabase = createClient();
   const { data: purchases, error } = await supabase.from("purchases").select();
 
+  // total amount spent on purchases this week
+  const getWeeklyTotal = () => {
+    const newDate = new Date();
+    // calculate the sunday start of the week
+    const weekStart = new Date(
+      newDate.setDate(newDate.getDate() - newDate.getDay()),
+    );
+
+    const weeklySpending = purchases?.filter((purchase) => {
+      const purchaseDate = new Date(purchase.purchase_date);
+      return purchaseDate >= weekStart;
+    });
+
+    const weeklySum = weeklySpending?.reduce(
+      (sum, item) => sum + item.price,
+      0,
+    );
+    return weeklySum.toFixed(2);
+  };
+
   // total amount spent on purchaes this month
+  const monthlyTotal = () => {
+    return purchases
+      ?.filter(
+        (purchase) =>
+          new Date().getMonth() === new Date(purchase.purchase_date).getMonth(),
+      )
+      .reduce((total, item) => total + item.price, 0)
+      .toFixed(2);
+  };
 
-  const total = purchases
-    ?.filter(
-      (purchase) =>
-        new Date().getMonth() === new Date(purchase.purchase_date).getMonth()
-    )
-    .reduce((total, item) => total + item.price, 0)
-    .toFixed(2);
+  // get current month
+  const getCurrentMonth = () => {
+    const months = [
+      "January",
+      "February",
+      "March",
+      "April",
+      "May",
+      "June",
+      "July",
+      "August",
+      "September",
+      "October",
+      "November",
+      "December",
+    ];
+    const currentMonth =
+      months[new Date().getMonth()] + " " + new Date().getFullYear();
+    return currentMonth;
+  };
 
-  // a list of unique supermarkets shopped at
-  const supermarkets: Array<string> = [
-    ...new Set((purchases ?? []).map((purchase) => purchase.store)),
-  ];
-
-  // a new fetch getting the most expensive purchase
-  const { data: expensive } = await supabase
-    .from("purchases")
-    .select()
-    .order("price", { ascending: false })
-    .limit(1)
-    .single();
-
-  // a new fetch getting the cheapest purchase
-
-  const { data: cheap } = await supabase
-    .from("purchases")
-    .select()
-    .order("price")
-    .limit(1)
-    .single();
-
-  const months = [
-    "January",
-    "February",
-    "March",
-    "April",
-    "May",
-    "June",
-    "July",
-    "August",
-    "September",
-    "October",
-    "November",
-    "December",
-  ];
   return (
-    <div className="flex-1 w-full flex flex-col gap-20 items-center">
-      <div className="animate-in flex-1 flex flex-col gap-20 opacity-0 max-w-4xl px-3">
-        <main className="flex-1 flex flex-col gap-6">
-          <h2 className="font-bold text-4xl">Dashboard - {months[new Date().getMonth()] + " " + new Date().getFullYear()}</h2>
-          {purchases && purchases.length > 0 ? (
-            <div className="flex gap-10 w-full justify-center items-center">
-              <div className="hover:scale-105 transition rounded-full bg-btn-background text-neutral-600 w-24 h-24 p-3 flex flex-col justify-center items-center">
-                <div className="font-bold">${total}</div>
-                <div className="text-xs">Total</div>
-              </div>
-              <div className="hover:scale-105 transition rounded-full bg-btn-background text-neutral-600 w-24 h-24 p-3 flex flex-col justify-center items-center">
-                <div className="font-bold">${expensive.price}</div>
-                <div className="text-xs">Expensive</div>
-                <div className="text-xs">{expensive.name}</div>
-              </div>
-              <div className="hover:scale-105 transition rounded-full bg-btn-background text-neutral-600 w-24 h-24 p-3 flex flex-col justify-center items-center">
-                <div className="font-bold">${cheap.price}</div>
-                <div className="text-xs">Cheapest</div>
-                <div className="text-xs">{cheap.name}</div>
-              </div>
-            </div>
-          ) : (
-            <h1>No data yet</h1>
-          )}
-          <h2>
-            Welcome to your dashboard. view your spending here. or navigate to
-            another page to view products and add items.
-          </h2>
-        </main>
+    <div className="flex w-full flex-1 flex-col items-center gap-20 bg-yellow-50">
+      <div className="animate-in flex max-w-4xl flex-1 flex-col items-center justify-between px-3 md:px-10 opacity-0">
+        <div>
+          <div>
+            <div>Dashboard</div>
+            <div className="mb-6 text-4xl font-bold">{getCurrentMonth()}</div>
+          </div>
+          <div>
+            <p>
+              Welcome to your dashboard. view your spending here. or navigate to
+              another page to view products and add items.
+            </p>
+          </div>
+        </div>
+        {purchases && purchases.length > 0 ? (
+          <div className="my-5 flex w-full items-center justify-center gap-10">
+            <CircleContainer title={"Week"} total={getWeeklyTotal()} />
+            <CircleContainer title={"Month"} total={monthlyTotal()} />
+          </div>
+        ) : (
+          <h1>No data yet</h1>
+        )}
+
+        {purchases && <Chart purchases={purchases} />}
       </div>
     </div>
   );

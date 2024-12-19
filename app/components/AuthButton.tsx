@@ -3,6 +3,7 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 
 export default async function AuthButton() {
+  // get user authentication
   const supabase = createClient();
   const {
     data: { user },

@@ -2,21 +2,13 @@ import Form from "@/app/components/Form";
 import React from "react";
 import { createClient } from "@/utils/supabase/server";
 import { redirect } from "next/navigation";
+import { FormData } from "@/types/types";
 
-interface FormData {
-  id: string;
-  name: string;
-  price: number;
-  store: string;
-  category: string;
-  purchase_date: string;
+interface EditPurchaseProps {
+  params: {id: string}
 }
 
-export default async function editPurchase({
-  params: { id },
-}: {
-  params: { id: string };
-}) {
+export default async function editPurchase({params: { id }}: EditPurchaseProps) {
   const supabase = createClient();
   const { data: purchase, error } = await supabase
     .from("purchases")

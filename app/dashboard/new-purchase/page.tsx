@@ -2,23 +2,14 @@ import { createClient } from "@/utils/supabase/server";
 import { redirect } from "next/navigation";
 import Form from "@/app/components/Form";
 import { todaysDate } from "@/utils/date";
-
-interface FormData {
-  id: string;
-  name: string;
-  price: number;
-  store: string;
-  category: string;
-  purchase_date: string;
-};
+import { FormData } from "@/types/types";
 
 export default async function NewPurchase() {
+  // Authenticate user
   const supabase = createClient();
+  const {data: { user }} = await supabase.auth.getUser();
 
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
-
+  // blank form data
   const formData = {
     id: "",
     name: "",
@@ -28,12 +19,12 @@ export default async function NewPurchase() {
     purchase_date: todaysDate(),
   };
 
+  // function to add purhcase to database
   const addPurchase = async (formData: FormData) => {
     "use server";
 
     const supabase = createClient();
     const { name, price, store, category, purchase_date } = formData;
-
     const { data, error } = await supabase
       .from("purchases")
       .insert({
@@ -46,7 +37,7 @@ export default async function NewPurchase() {
       })
       .select();
 
-    redirect(`/dashboard/purchases/${data[0].id}`);
+    redirect(`/dashboard/purchases/${data && data[0].id}`);
   };
 
   return (

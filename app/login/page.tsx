@@ -4,8 +4,10 @@ import { createClient } from "@/utils/supabase/server";
 import { redirect } from "next/navigation";
 import { SubmitButton } from "./components/submit-button";
 
-export default function Login({searchParams,}: {searchParams: { message: string };
-}) {
+interface LoginProps {
+  searchParams: {message: string};
+}
+export default function Login({searchParams}: LoginProps) {
   const signIn = async (formData: FormData) => {
     "use server";
 
@@ -13,18 +15,20 @@ export default function Login({searchParams,}: {searchParams: { message: string 
     const password = formData.get("password") as string;
     const supabase = createClient();
 
+    // authenticate user in database
     const { error } = await supabase.auth.signInWithPassword({
       email,
       password,
     });
-
+    // if not found, redirect with error
     if (error) {
       return redirect("/login?message=Email or password incorrect");
     }
-
+    // if found, move forward to database
     return redirect("/dashboard");
   };
 
+  // function used to create new user
   const signUp = async (formData: FormData) => {
     "use server";
 
@@ -33,6 +37,7 @@ export default function Login({searchParams,}: {searchParams: { message: string 
     const password = formData.get("password") as string;
     const supabase = createClient();
 
+    // create new user
     const { error } = await supabase.auth.signUp({
       email,
       password,

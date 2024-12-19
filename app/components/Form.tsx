@@ -1,27 +1,19 @@
 "use client";
 import Link from "next/link";
 import { useState } from "react";
+import { FormData } from "@/types/types";
+import { useParams } from "next/navigation";
 
-interface FormData {
-  id: string;
-  name: string;
-  price: number;
-  store: string;
-  category: string;
-  purchase_date: string;
-}
-
-interface Props {
+interface FormProps {
   initialData: FormData;
   handleSubmit: (formData: FormData) => Promise<never>;
 }
 
-export default function Form({ initialData, handleSubmit }: Props) {
+export default function Form({ initialData, handleSubmit }: FormProps) {
   const [formData, setFormData] = useState(initialData);
+  const params = useParams();
 
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
-  ) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
@@ -53,7 +45,6 @@ export default function Form({ initialData, handleSubmit }: Props) {
               peer-placeholder-shown:top-1
               peer-placeholder-shown:border-white
               -top-2
-
               text-xs
               px-2
               text-black
@@ -67,10 +58,8 @@ export default function Form({ initialData, handleSubmit }: Props) {
               peer-focus:px-2
               peer-focus:border-black
               peer-focus:bg-btn-background 
-              valid:border-black
-
-              "
-            >
+              valid:border-black"
+              >
               Name
             </label>
           </div>
@@ -112,9 +101,7 @@ export default function Form({ initialData, handleSubmit }: Props) {
               peer-focus:px-2
               peer-focus:border-black
               peer-focus:bg-btn-background 
-              valid:border-black
-
-              "
+              valid:border-black"
             >
               Price
             </label>
@@ -156,9 +143,7 @@ export default function Form({ initialData, handleSubmit }: Props) {
               peer-focus:px-2
               peer-focus:border-black
               peer-focus:bg-btn-background 
-              valid:border-black
-
-              "
+              valid:border-black"
             >
               Store
             </label>
@@ -170,7 +155,7 @@ export default function Form({ initialData, handleSubmit }: Props) {
               onChange={handleChange}
               className="peer h-10 w-full border px-3 border-black placeholder-transparent focus:outline-none focus:border-btn-background"
             >
-              <option defaultValue="" selected hidden></option>
+              <option defaultValue="" hidden></option>
               <option value="grocery">grocery</option>
               <option value="clothes">clothes</option>
             </select>
@@ -201,9 +186,7 @@ export default function Form({ initialData, handleSubmit }: Props) {
               peer-focus:px-2
               peer-focus:border-black
               peer-focus:bg-btn-background 
-              valid:border-black
-
-              "
+              valid:border-black"
             >
               Category
             </label>
@@ -257,7 +240,7 @@ export default function Form({ initialData, handleSubmit }: Props) {
               type="submit"
               className="flex-1 py-2 px-4 rounded-md bg-btn-background hover:bg-btn-background-hover"
             >
-              add
+              {params.id ? "save" : "add"}
             </button>
             <Link href="/dashboard">
               <button

@@ -3,28 +3,28 @@ import AuthButton from "./AuthButton";
 
 export default async function Header() {
   return (
-    <nav className="w-full flex md:flex-row flex-col-reverse justify-between items-center px-3 border-b border-b-foreground/10">
+    <nav className="flex w-full flex-col-reverse items-center justify-between border-b border-b-foreground/10 bg-background px-3 md:flex-row">
       <div className="flex gap-3">
         <Link
           href="/dashboard"
-          className="bg-black hover:scale-105 transition rounded-tl-md rounded-tr-md px-3 text-btn-background"
+          className="rounded-tl-md rounded-tr-md bg-black px-3 text-btn-background transition-all hover:scale-105"
         >
-          Home{" "}
+          Home
         </Link>
         <Link
           href="/dashboard/purchases"
-          className="bg-black hover:scale-105 transition rounded-tl-md rounded-tr-md  px-3 text-btn-background"
+          className="rounded-tl-md rounded-tr-md bg-black px-3 text-btn-background transition-all hover:scale-105"
         >
-          Purchases{" "}
+          Purchases
         </Link>
         <Link
           href="/dashboard/new-purchase"
-          className="bg-black hover:scale-105 transition  rounded-tl-md rounded-tr-md  px-3 text-btn-background"
+          className="rounded-tl-md rounded-tr-md bg-black px-3 text-btn-background transition hover:scale-105"
         >
           Add
         </Link>
-      </div>{" "}
-      <div className="w-full max-w-4xl flex justify-end items-center p-1 text-sm">
+      </div>
+      <div className="flex w-full max-w-4xl items-center justify-end p-1 text-sm">
         <AuthButton />
       </div>
     </nav>
